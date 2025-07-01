@@ -21,7 +21,7 @@ export default defineConfig({
     // We don't want to bundle React into our library.
     // The consumer of our library will have React installed.
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom', '@chakra-ui/react', '@emotion/react'],
       output: {
         globals: {
           react: 'React',

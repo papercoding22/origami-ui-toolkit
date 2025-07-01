@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react'
+import { Button as ChakraButton } from '@chakra-ui/react'
 
 export const Button = ({ children }: { children: React.ReactNode }) => {
-  return <button style={{ padding: "8px 12px" }}>{children}</button>;
-};
+  return <ChakraButton style={{ padding: '8px 12px' }}>{children}</ChakraButton>
+}
