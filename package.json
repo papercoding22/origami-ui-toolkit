@@ -6,10 +6,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pnpm --filter=./apps/playground dev",
-    "build": "pnpm --filter=./packages/* build"
+    "build": "pnpm --filter=./packages/* build",
+    "lint": "eslint . --ext .ts,.tsx --cache",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write . --cache",
+    "format:check": "prettier --check . --cache"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.12.4"
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "eslint": "^9.30.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "prettier": "^3.6.2",
+    "typescript-eslint": "^8.35.1"
+  }
 }
