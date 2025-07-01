@@ -5,11 +5,17 @@
   "type": "module",
   "main": "dist/ui-toolkit.cjs",
   "module": "dist/ui-toolkit.js",
-  "types": "dist/ui-toolkit.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/ui-toolkit.js",
-      "require": "./dist/ui-toolkit.cjs"
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/ui-toolkit.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/ui-toolkit.cjs"
+      }
     }
   },
   "files": [
