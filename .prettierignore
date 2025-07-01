@@ -1,4 +1,21 @@
-node_modules
-dist
-.turbo
+# Add files here to ignore them from prettier formatting
+
+.astro
 .next
+
+/.cache
+
+node_modules
+
+/dist
+/coverage
+/tmp
+/out
+/out-tsc
+cdk.out
+
+media
+
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
