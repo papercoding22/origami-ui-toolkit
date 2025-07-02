@@ -14,7 +14,7 @@ export const AsyncSelect = <T extends SelectItem>(props: AsyncSelectProps<T>) =>
   const { label = 'Select item', loading, collection, ...rest } = props;
 
   return (
-    <SelectChakra.Root {...rest} size="sm" width="320px" collection={collection}>
+    <SelectChakra.Root {...rest} collection={collection}>
       <SelectChakra.HiddenSelect />
       <SelectChakra.Label>{label}</SelectChakra.Label>
       <SelectChakra.Control>

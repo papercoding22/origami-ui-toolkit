@@ -12,6 +12,8 @@ function App() {
       </Button>
       <div style={{ marginTop: '20px' }}>
         <SelectData
+          size={'sm'}
+          width={'320px'}
           onSelect={(item) => {
             console.log('Selected item:', item);
           }}
