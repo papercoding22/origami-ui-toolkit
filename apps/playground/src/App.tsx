@@ -1,33 +1,27 @@
-import { useState } from 'react';
-import { Button } from '@paper/ui-toolkit';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { Button, SelectData } from '@paper/ui-toolkit';
 import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0);
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function App() {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
       <Button>
         <span>Click me!</span>
       </Button>
+      <div style={{ marginTop: '20px' }}>
+        <SelectData
+          fetchFn={async () => {
+            const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20');
+            await delay(4000); // Simulate network delay
+            const data = await response.json();
+            return data.results.map((item: { name: string }) => ({
+              id: item.name,
+              name: item.name,
+            }));
+          }}
+        />
+      </div>
     </>
   );
 }

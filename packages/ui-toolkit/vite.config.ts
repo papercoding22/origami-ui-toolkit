@@ -1,14 +1,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
+import dts from 'vite-plugin-dts';
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      outDir: 'dist/types',
+      tsconfigPath: './tsconfig.app.json',
+    }),
+  ],
   build: {
     lib: {
       entry: 'src/index.ts',
       name: '@paper/ui-toolkit',
-      fileName: 'ui-toolkit',
+      fileName: (format) => `ui-toolkit.${format}.js`,
       formats: ['es', 'cjs'],
     },
     // We don't want to bundle React into our library.

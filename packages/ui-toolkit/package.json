@@ -3,18 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/ui-toolkit.cjs",
-  "module": "dist/ui-toolkit.js",
+  "main": "dist/ui-toolkit.cjs.js",
+  "module": "dist/ui-toolkit.es.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/types/index.d.ts",
-        "default": "./dist/ui-toolkit.js"
+        "default": "./dist/ui-toolkit.es.js"
       },
       "require": {
         "types": "./dist/types/index.d.ts",
-        "default": "./dist/ui-toolkit.cjs"
+        "default": "./dist/ui-toolkit.cjs.js"
       }
     }
   },
@@ -49,5 +49,8 @@
     "vite": "^7.0.0",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "react-use": "^17.6.0"
   }
 }
