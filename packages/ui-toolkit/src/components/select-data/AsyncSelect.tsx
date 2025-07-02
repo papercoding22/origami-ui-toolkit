@@ -1,22 +1,20 @@
-import { Portal, Select as SelectChakra, Spinner, type ListCollection } from '@chakra-ui/react';
+import { Portal, Select as SelectChakra, Spinner, type SelectRootProps } from '@chakra-ui/react';
 
-export interface NamedItem {
+export interface SelectItem {
   name: string;
+  id?: string; // Optional ID for the item
 }
 
-export interface AsyncSelectProps<T extends NamedItem> {
+export interface AsyncSelectProps<T extends SelectItem> extends SelectRootProps<T> {
   label?: string;
-  collection: ListCollection<T>;
   loading?: boolean;
 }
 
-export const AsyncSelect = <T extends NamedItem>({
-  label = 'Select item',
-  collection,
-  loading,
-}: AsyncSelectProps<T>) => {
+export const AsyncSelect = <T extends SelectItem>(props: AsyncSelectProps<T>) => {
+  const { label = 'Select item', loading, collection, ...rest } = props;
+
   return (
-    <SelectChakra.Root collection={collection} size="sm" width="320px">
+    <SelectChakra.Root {...rest} size="sm" width="320px" collection={collection}>
       <SelectChakra.HiddenSelect />
       <SelectChakra.Label>{label}</SelectChakra.Label>
       <SelectChakra.Control>

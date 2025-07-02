@@ -1,20 +1,16 @@
-import { createListCollection, type ListCollection } from '@chakra-ui/react';
+import { type ListCollection, type SelectRootProps } from '@chakra-ui/react';
 
 import { useAsync } from 'react-use';
-import { AsyncSelect, type NamedItem } from './AsyncSelect';
+import { AsyncSelect, type SelectItem } from './AsyncSelect';
+import React from 'react';
 
-interface SelectDataProps {
-  fetchFn: () => Promise<NamedItem[]>;
+interface SelectDataProps extends Omit<SelectRootProps, 'collection'> {
+  fetchFn: () => Promise<SelectItem[]>;
+  mapper: (data: SelectItem[]) => ListCollection<SelectItem>;
 }
 
-export const SelectData: React.FC<SelectDataProps> = ({ fetchFn }) => {
+export const SelectData: React.FC<SelectDataProps> = ({ fetchFn, mapper, ...rest }) => {
   const state = useAsync(fetchFn, []);
-
-  const collection: ListCollection<NamedItem> = createListCollection({
-    items: state.value ?? [],
-    itemToValue: (item) => item.name,
-    itemToString: (item) => item.name,
-  });
-
-  return <AsyncSelect collection={collection} loading={state.loading} />;
+  const collection = React.useMemo(() => mapper(state.value || []), [mapper, state.value]);
+  return <AsyncSelect {...rest} collection={collection} loading={state.loading} />;
 };
