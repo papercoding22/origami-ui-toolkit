@@ -1,0 +1,1 @@
+export { useObject } from './useObject';
