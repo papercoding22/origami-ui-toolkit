@@ -1,10 +1,10 @@
-import { type ListCollection, type SelectRootProps } from '@chakra-ui/react';
+import { type ListCollection } from '@chakra-ui/react';
 
 import { useAsync } from 'react-use';
-import { AsyncSelect, type SelectItem } from './AsyncSelect';
+import { AsyncSelect, type AsyncSelectProps, type SelectItem } from './AsyncSelect';
 import React from 'react';
 
-interface SelectDataProps extends Omit<SelectRootProps, 'collection'> {
+interface SelectDataProps extends Omit<AsyncSelectProps<SelectItem>, 'collection'> {
   fetchFn: () => Promise<SelectItem[]>;
   mapper: (data: SelectItem[]) => ListCollection<SelectItem>;
 }

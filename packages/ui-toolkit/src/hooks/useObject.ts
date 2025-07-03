@@ -1,13 +1,12 @@
 import { useAsync } from 'react-use';
 import { useAPI } from '../context';
-import type { ObjectData } from '../services';
 
-export function useObject<T>(
+export function useObject<T, P>(
   query: {
     objectName: string;
     filter?: string;
   },
-  mapper: (data: T[]) => ObjectData[],
+  mapper: (data: T[]) => P,
 ) {
   const { objectName, filter } = query;
   const { objectAPI } = useAPI();
@@ -23,7 +22,7 @@ export function useObject<T>(
 
   return {
     ...state,
-    data: state.value || [],
+    data: state.value,
     isLoading: state.loading,
     isError: state.error,
   };

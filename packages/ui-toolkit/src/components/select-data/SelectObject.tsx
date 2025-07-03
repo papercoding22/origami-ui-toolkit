@@ -1,13 +1,11 @@
-import { createListCollection } from '@chakra-ui/react';
-import React from 'react';
+import { createListCollection, type ListCollection } from '@chakra-ui/react';
 import { useObject } from '../../hooks';
-import { AsyncSelect, type AsyncSelectProps } from './AsyncSelect';
-import type { ObjectData } from '../../services';
+import { AsyncSelect, type AsyncSelectProps, type SelectItem } from './AsyncSelect';
 
 export interface SelectObjectProps<T> {
   objectName: string;
   filter?: string;
-  mapper: (data: T[]) => ObjectData[];
+  mapper: (data: T[]) => ListCollection<SelectItem>;
 }
 
 export const SelectObject = <T,>({
@@ -15,16 +13,10 @@ export const SelectObject = <T,>({
   filter,
   mapper,
   ...rest
-}: SelectObjectProps<T> & Omit<AsyncSelectProps<ObjectData>, 'collection'>) => {
-  const state = useObject({ objectName, filter }, mapper);
+}: SelectObjectProps<T> & Omit<AsyncSelectProps<SelectItem>, 'collection'>) => {
+  const state = useObject<T, ListCollection<SelectItem>>({ objectName, filter }, mapper);
 
-  const collection = React.useMemo(() => {
-    return createListCollection({
-      items: state.data ?? [],
-      itemToString: (item) => item.name,
-      itemToValue: (item) => item.id ?? item.name,
-    });
-  }, [state.data]);
+  const collection = state.data ? state.data : createListCollection<SelectItem>({ items: [] });
 
   return <AsyncSelect {...rest} collection={collection} loading={state.isLoading} />;
 };

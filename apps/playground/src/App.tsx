@@ -1,4 +1,4 @@
-import { Button, SelectData, SelectObject } from '@paper/ui-toolkit';
+import { Button, SelectData, SelectObject, type SelectItem } from '@paper/ui-toolkit';
 import './App.css';
 import { createListCollection } from '@chakra-ui/react';
 
@@ -22,6 +22,7 @@ function App() {
       </Button>
       <div style={{ marginTop: '20px' }}>
         <SelectData
+          label="Select Pokémon"
           size={'sm'}
           width={'320px'}
           onSelect={(item) => {
@@ -49,6 +50,7 @@ function App() {
       </div>
       <div style={{ marginTop: '20px' }}>
         <SelectData
+          label="Select Products"
           size={'sm'}
           width={'320px'}
           onSelect={(item) => {
@@ -75,16 +77,29 @@ function App() {
         />
         <SelectObject<User>
           objectName="users"
-          mapper={(data: User[]) => data.map((user) => ({ id: user.id, name: user.name }))}
+          label="Select User"
+          mapper={(data: User[]) => {
+            return createListCollection<SelectItem>({
+              items: data.map((user) => ({ id: user.id, name: user.name })),
+              itemToValue: (item) => item.id ?? item.name,
+              itemToString: (item) => item.name,
+              isItemDisabled: (item) => item.name === 'Alice',
+            });
+          }}
           onSelect={(item) => {
             console.log('Selected user:', item);
           }}
         />
         <SelectObject<Product>
           objectName="products"
-          mapper={(data: Product[]) =>
-            data.map((user) => ({ id: user.id, name: user.productName }))
-          }
+          label="Select Product"
+          mapper={(data: Product[]) => {
+            return createListCollection<SelectItem>({
+              items: data.map((product) => ({ id: product.id, name: product.productName })),
+              itemToValue: (item) => item.id ?? item.name,
+              itemToString: (item) => item.name,
+            });
+          }}
           onSelect={(item) => {
             console.log('Selected product:', item);
           }}
