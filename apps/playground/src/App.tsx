@@ -105,6 +105,26 @@ function App() {
             console.log('Selected product:', item);
           }}
         />
+        <SelectItem<{ customId: string; customName: string }>
+          itemName="customItems"
+          label="Select Custom Item"
+          fetchItems={async (itemName, filter) => {
+            console.log(`Fetching custom items for item: ${itemName} with filter: ${filter}`);
+            await delay(2000); // Simulate network delay
+            return [
+              { customId: '1', customName: 'Custom Item 1' },
+              { customId: '2', customName: 'Custom Item 2' },
+              { customId: '3', customName: 'Custom Item 3' },
+            ];
+          }}
+          mapper={(data) => {
+            return createListCollection<Item>({
+              items: data.map((item) => ({ id: item.customId, name: item.customName })),
+              itemToValue: (item) => item.id ?? item.name,
+              itemToString: (item) => item.name,
+            });
+          }}
+        />
       </div>
     </>
   );
