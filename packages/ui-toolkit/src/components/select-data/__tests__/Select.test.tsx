@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { AsyncSelect, type SelectItem } from '../AsyncSelect';
 import { createListCollection } from '@chakra-ui/react';
 import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import type { Item } from '../../../models';
+import { Select } from '../Select';
 
 // Mock Chakra UI Select components
 vi.mock('@chakra-ui/react', async () => {
@@ -37,7 +38,7 @@ vi.mock('@chakra-ui/react', async () => {
   };
 });
 
-const items: SelectItem[] = [
+const items: Item[] = [
   { name: 'Option 1', id: '1' },
   { name: 'Option 2', id: '2' },
 ];
@@ -48,7 +49,7 @@ const collection = createListCollection({
 
 describe('AsyncSelect', () => {
   it('renders with default label', () => {
-    render(<AsyncSelect collection={collection} />);
+    render(<Select collection={collection} />);
     // There are two elements with 'Select item': the label and the value text
     const selectItems = screen.getAllByText('Select item');
     expect(selectItems.length).toBe(2);
@@ -56,31 +57,31 @@ describe('AsyncSelect', () => {
   });
 
   it('renders with custom label', () => {
-    render(<AsyncSelect collection={collection} label="Choose option" />);
+    render(<Select collection={collection} label="Choose option" />);
     const chooseOptionElements = screen.getAllByText('Choose option');
     expect(chooseOptionElements.length).toBeGreaterThan(0);
     expect(screen.getByTestId('value-text')).toHaveTextContent('Choose option');
   });
 
   it('renders all items in the collection', () => {
-    render(<AsyncSelect collection={collection} />);
+    render(<Select collection={collection} />);
     items.forEach((item) => {
       expect(screen.getByTestId(`item-${item.name}`)).toHaveTextContent(item.name);
     });
   });
 
   it('renders Spinner when loading is true', () => {
-    render(<AsyncSelect collection={collection} loading />);
+    render(<Select collection={collection} loading />);
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 
   it('does not render Spinner when loading is false', () => {
-    render(<AsyncSelect collection={collection} loading={false} />);
+    render(<Select collection={collection} loading={false} />);
     expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
   });
 
   it('renders ItemIndicator for each item', () => {
-    render(<AsyncSelect collection={collection} />);
+    render(<Select collection={collection} />);
     const indicators = screen.getAllByTestId('item-indicator');
     expect(indicators.length).toBe(items.length);
   });

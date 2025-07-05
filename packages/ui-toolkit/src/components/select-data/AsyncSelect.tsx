@@ -1,43 +1,26 @@
-import { Portal, Select as SelectChakra, Spinner, type SelectRootProps } from '@chakra-ui/react';
+import { createListCollection, type ListCollection } from '@chakra-ui/react';
 
-export interface SelectItem {
-  name: string;
-  id?: string; // Optional ID for the item
+import React from 'react';
+import { useAsync } from 'react-use';
+
+import type { Item } from '../../models';
+import { Select, type SelectProps } from './Select';
+
+interface SelectDataProps extends Omit<SelectProps<Item>, 'collection'> {
+  fetchFn: () => Promise<Item[]>;
+  mapper?: (data: Item[]) => ListCollection<Item>;
 }
 
-export interface AsyncSelectProps<T extends SelectItem> extends SelectRootProps<T> {
-  label?: string;
-  loading?: boolean;
-}
+export const AsyncSelect: React.FC<SelectDataProps> = ({ fetchFn, mapper, ...rest }) => {
+  const state = useAsync(fetchFn, []);
 
-export const AsyncSelect = <T extends SelectItem>(props: AsyncSelectProps<T>) => {
-  const { label = 'Select item', loading, collection, ...rest } = props;
+  const collection = mapper
+    ? mapper(state.value || [])
+    : createListCollection<Item>({
+        items: state.value || [],
+        itemToString: (item) => item.name,
+        itemToValue: (item) => item.id,
+      });
 
-  return (
-    <SelectChakra.Root {...rest} collection={collection}>
-      <SelectChakra.HiddenSelect />
-      <SelectChakra.Label>{label}</SelectChakra.Label>
-      <SelectChakra.Control>
-        <SelectChakra.Trigger>
-          <SelectChakra.ValueText placeholder={label} />
-        </SelectChakra.Trigger>
-        <SelectChakra.IndicatorGroup>
-          {loading && <Spinner size="xs" borderWidth="1.5px" color="fg.muted" />}
-          <SelectChakra.Indicator />
-        </SelectChakra.IndicatorGroup>
-      </SelectChakra.Control>
-      <Portal>
-        <SelectChakra.Positioner>
-          <SelectChakra.Content>
-            {collection.items.map((item) => (
-              <SelectChakra.Item item={item} key={item.name}>
-                {item.name}
-                <SelectChakra.ItemIndicator />
-              </SelectChakra.Item>
-            ))}
-          </SelectChakra.Content>
-        </SelectChakra.Positioner>
-      </Portal>
-    </SelectChakra.Root>
-  );
+  return <Select {...rest} collection={collection} loading={state.loading} />;
 };

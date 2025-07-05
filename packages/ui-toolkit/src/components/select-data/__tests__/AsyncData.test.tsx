@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { render, screen, waitFor } from '@testing-library/react';
-import { vi, describe, expect, beforeEach, it } from 'vitest';
-import { SelectData } from '../SelectData';
-import type { SelectItem } from '../AsyncSelect';
 import { createListCollection } from '@chakra-ui/react';
 import '@testing-library/jest-dom';
+import { render, screen, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Item } from '../../../models';
+import { AsyncSelect } from '../AsyncSelect';
 
 // Mock AsyncSelect to inspect props
 vi.mock('../AsyncSelect', () => ({
@@ -16,7 +16,7 @@ vi.mock('../AsyncSelect', () => ({
 }));
 
 describe('SelectData', () => {
-  const items: SelectItem[] = [
+  const items: Item[] = [
     {
       name: 'A',
       id: '1',
@@ -28,7 +28,7 @@ describe('SelectData', () => {
   ];
 
   const fetchFn = vi.fn().mockResolvedValue(items);
-  const mapper = vi.fn((data: SelectItem[]) => createListCollection({ items: data }));
+  const mapper = vi.fn((data: Item[]) => createListCollection({ items: data }));
 
   beforeEach(() => {
     fetchFn.mockClear();
@@ -36,7 +36,7 @@ describe('SelectData', () => {
   });
 
   it('calls fetchFn and mapper, passes mapped collection to AsyncSelect', async () => {
-    render(<SelectData fetchFn={fetchFn} mapper={mapper} />);
+    render(<AsyncSelect fetchFn={fetchFn} mapper={mapper} />);
     expect(fetchFn).toHaveBeenCalledTimes(1);
 
     // Initially loading
@@ -52,7 +52,7 @@ describe('SelectData', () => {
   });
 
   it('passes additional props to AsyncSelect', async () => {
-    render(<SelectData fetchFn={fetchFn} mapper={mapper} />);
+    render(<AsyncSelect fetchFn={fetchFn} mapper={mapper} />);
     await waitFor(() => {
       expect(screen.getByTestId('async-select').textContent).toContain('"size":2');
     });
@@ -60,7 +60,7 @@ describe('SelectData', () => {
 
   it('handles fetchFn rejection gracefully', async () => {
     const errorFetch = vi.fn().mockRejectedValue(new Error('fail'));
-    render(<SelectData fetchFn={errorFetch} mapper={mapper} />);
+    render(<AsyncSelect fetchFn={errorFetch} mapper={mapper} />);
     await waitFor(() => {
       // Should call mapper with empty array if fetch fails
       expect(mapper).toHaveBeenCalledWith([]);

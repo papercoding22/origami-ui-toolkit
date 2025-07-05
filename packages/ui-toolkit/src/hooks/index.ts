@@ -1,1 +1,1 @@
-export { useObject } from './useObject';
+export { useItem } from './useItem';

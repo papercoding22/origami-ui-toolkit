@@ -19,15 +19,15 @@ const mockDB: { [key: string]: Array<unknown> } = {
 };
 
 const apiService: APIContextValue = {
-  objectAPI: {
-    fetchObjectData: async <T,>(objectName: string, filter?: string): Promise<T[]> => {
-      console.log(`Fetching data for object: ${objectName} with filter: ${filter}`);
-      if (!mockDB[objectName]) {
-        throw new Error(`Object ${objectName} not found`);
+  itemAdapter: {
+    fetchItems: async <T,>(itemName: string, filter?: string): Promise<T[]> => {
+      console.log(`Fetching items for item: ${itemName} with filter: ${filter}`);
+      if (!mockDB[itemName]) {
+        throw new Error(`Item ${itemName} not found`);
       }
       // fake network delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      const data = mockDB[objectName] as T[];
+      const data = mockDB[itemName] as T[];
       return data;
     },
   },

@@ -1,8 +1,8 @@
 import React, { createContext, useContext } from 'react';
-import type { ObjectAPI } from '../services/api/objectAPI';
+import type { ItemAdapter } from '../adapter';
 
 export interface APIContextValue {
-  objectAPI: ObjectAPI;
+  itemAdapter: ItemAdapter;
 }
 
 const APIContext = createContext<APIContextValue | undefined>(undefined);
@@ -14,7 +14,7 @@ export const APIProvider: React.FC<{ children: React.ReactNode; value: APIContex
   return <APIContext.Provider value={value}>{children}</APIContext.Provider>;
 };
 
-export const useAPI = (): APIContextValue => {
+export const useAdapter = (): APIContextValue => {
   const context = useContext(APIContext);
   if (!context) throw new Error('useAPI must be used within an APIProvider');
   return context;

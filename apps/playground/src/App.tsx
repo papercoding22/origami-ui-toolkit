@@ -1,6 +1,7 @@
-import { Button, SelectData, SelectObject, type SelectItem } from '@paper/ui-toolkit';
-import './App.css';
 import { createListCollection } from '@chakra-ui/react';
+
+import { Button, SelectData, SelectItem, type Item } from '@paper/ui-toolkit';
+import './App.css';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -75,11 +76,11 @@ function App() {
             return collection;
           }}
         />
-        <SelectObject<User>
-          objectName="users"
+        <SelectItem<User>
+          itemName="users"
           label="Select User"
           mapper={(data: User[]) => {
-            return createListCollection<SelectItem>({
+            return createListCollection<Item>({
               items: data.map((user) => ({ id: user.id, name: user.name })),
               itemToValue: (item) => item.id ?? item.name,
               itemToString: (item) => item.name,
@@ -90,11 +91,11 @@ function App() {
             console.log('Selected user:', item);
           }}
         />
-        <SelectObject<Product>
-          objectName="products"
+        <SelectItem<Product>
+          itemName="products"
           label="Select Product"
           mapper={(data: Product[]) => {
-            return createListCollection<SelectItem>({
+            return createListCollection<Item>({
               items: data.map((product) => ({ id: product.id, name: product.productName })),
               itemToValue: (item) => item.id ?? item.name,
               itemToString: (item) => item.name,
