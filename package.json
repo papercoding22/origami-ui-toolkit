@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "pnpm --filter=./apps/playground dev",
+    "dev:server": "pnpm --filter=./apps/server dev",
     "build": "pnpm --filter=./packages/* build",
     "lint": "eslint . --ext .ts,.tsx --cache",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
