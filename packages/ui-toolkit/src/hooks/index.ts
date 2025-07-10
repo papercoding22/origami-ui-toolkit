@@ -1,1 +1,1 @@
-export { useItem } from './useItem';
+export { useGetPicklist } from './useGetPicklist';

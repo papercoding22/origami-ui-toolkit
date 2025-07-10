@@ -1,1 +1,1 @@
-export { APIProvider, useAdapter, type APIContextValue } from './ApiProvider';
+export { APIProvider, useAPIContext as useAdapter, type APIContextValue } from './ApiProvider';

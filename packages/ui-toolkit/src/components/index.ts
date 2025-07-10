@@ -1,2 +1,2 @@
 export * from './button';
-export * from './select-data';
+export * from './select';
