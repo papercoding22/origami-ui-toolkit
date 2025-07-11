@@ -1,8 +1,4 @@
-import { StrictMode } from 'react';
 import { Provider } from '@/components/ui/provider';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import App from './App.tsx';
 import {
   APIProvider,
   PicklistEntity,
@@ -10,6 +6,11 @@ import {
   type APIContextValue,
   type PicklistProvider,
 } from '@paper/ui-toolkit';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import './index.css';
+import App from './App.tsx';
 
 class PokemonPicklistAdapter implements PicklistProvider {
   getPicklist(picklistName: string, params?: Record<string, unknown>): Promise<PicklistEntity[]> {
