@@ -18,8 +18,8 @@ const ProfileCardDemo = () => (
       </div>
       <div className="w-full text-left pt-4">
         <p className="text-sm text-gray-600">
-          Passionate about creating intuitive user experiences that bridge the
-          gap between users and technology. Avid hiker and coffee enthusiast.
+          Passionate about creating intuitive user experiences that bridge the gap between users and
+          technology. Avid hiker and coffee enthusiast.
         </p>
       </div>
     </div>

@@ -1,7 +1,5 @@
 import React from 'react';
-import ExpandCollapse, {
-  type ExpandCollapseItem,
-} from '@/components/ui/Expandable';
+import ExpandCollapse, { type ExpandCollapseItem } from '@/components/ui/Expandable';
 
 /**
  * The Demo type now supports nesting via an optional `children` array.
@@ -22,12 +20,7 @@ type SidebarProps = {
   isOpen: boolean;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({
-  demos,
-  selectedDemoId,
-  onSelectDemo,
-  isOpen,
-}) => {
+const Sidebar: React.FC<SidebarProps> = ({ demos, selectedDemoId, onSelectDemo, isOpen }) => {
   // We transform our `demos` data into the format required by `ExpandCollapse`.
   const navItems: ExpandCollapseItem[] = demos.map((demo) => ({
     id: demo.id,
@@ -41,11 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         }`}
       >
         <span
-          className={
-            selectedDemoId === demo.id && !demo.children
-              ? 'text-white'
-              : 'text-gray-400'
-          }
+          className={selectedDemoId === demo.id && !demo.children ? 'text-white' : 'text-gray-400'}
         >
           {demo.icon}
         </span>

@@ -1,4 +1,3 @@
-import { Provider } from '@/components/ui/provider';
 import {
   APIProvider,
   PicklistEntity,
@@ -42,9 +41,7 @@ const apiService: APIContextValue = {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <APIProvider value={apiService}>
-      <Provider>
-        <App />
-      </Provider>
+      <App />
     </APIProvider>
   </StrictMode>,
 );
