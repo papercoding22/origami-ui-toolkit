@@ -5,10 +5,10 @@ import {
   type APIContextValue,
   type PicklistProvider,
 } from '@paper/ui-toolkit';
+import { Provider } from '../src/components/ui/provider.tsx';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import './index.css';
 import App from './App.tsx';
 
 class PokemonPicklistAdapter implements PicklistProvider {
@@ -41,7 +41,9 @@ const apiService: APIContextValue = {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <APIProvider value={apiService}>
-      <App />
+      <Provider>
+        <App />
+      </Provider>
     </APIProvider>
   </StrictMode>,
 );

@@ -1,7 +1,11 @@
-import { DemoPage } from '@/demo';
+import { Picklist } from '@paper/ui-toolkit';
 
 const App = () => {
-  return <DemoPage />;
+  return (
+    <div>
+      <Picklist name="pokemon" />
+    </div>
+  );
 };
 
 export default App;
