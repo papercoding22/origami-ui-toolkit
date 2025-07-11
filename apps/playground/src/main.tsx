@@ -12,9 +12,15 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 
 class PokemonPicklistAdapter implements PicklistProvider {
-  getPicklist(picklistName: string, params?: Record<string, unknown>): Promise<PicklistEntity[]> {
+  async getPicklist(
+    picklistName: string,
+    params?: Record<string, unknown>,
+  ): Promise<PicklistEntity[]> {
     // log
     console.log(`Fetching picklist: ${picklistName} with params:`, params);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
+
     switch (picklistName) {
       case 'countries':
         return Promise.resolve([
