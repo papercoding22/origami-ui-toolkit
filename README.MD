@@ -19,62 +19,11 @@ Welcome to the Origami UI Toolkit! This project is a monorepo designed to provid
 
 The origami-ui-toolkit is structured into several distinct layers to ensure modularity, maintainability, and testability.
 
-```
-+------------------------------------+
-|          EXTERNAL SYSTEMS          |
-|    (e.g., External Picklist API)   |
-+------------------------------------+
-                |
-                |  (Data Request)
-                V
-+------------------------------------+
-|          UI-TOOLKIT PACKAGE        |
-|                                    |
-|  +------------------------------+  |
-|  |       SERVICES LAYER         |  |
-|  |  +------------------------+  |  |
-|  |  | PicklistProvider       |<-- Interface (Implemented externally)
-|  |  +------------------------+  |
-|  |         | (Provides Data)    |
-|  |         V                    |
-|  |  +------------------------+  |
-|  |  | PicklistService        |  |
-|  |  +------------------------+  |
-|  +------------------------------+
-|                |
-|                V
-|  +------------------------------+
-|  |       CONTEXT LAYER          |
-|  |  +------------------------+  |
-|  |  | APIProvider            |<-- React Context
-|  |  +------------------------+  |
-|  +------------------------------+
-|                |
-|                V
-|  +------------------------------+
-|  |         HOOKS LAYER          |
-|  |  +------------------------+  |
-|  |  | useGetPicklist         |<-- Hook for fetching data
-|  |  +------------------------+  |
-|  +------------------------------+
-|                |
-|                V
-|  +------------------------------+
-|  |       FEATURES LAYER         |
-|  |  +------------------------+  |
-|  |  | Picklist               |<-- Feature Component
-|  |  +------------------------+  |
-|  +------------------------------+
-|                |
-|                V
-|  +------------------------------+
-|  |       COMPONENTS LAYER       |
-|  |  +------------------------+  |
-|  |  | Select, Button         |  |
-|  |  +------------------------+  |
-|  +------------------------------+
-+------------------------------------+
-```
+<!-- Image from ./assets/arch-at-a-glance.png to show the arch overview -->
+
+<p align="center">
+  <img src="./assets/arch-at-a-glance.png" alt="Architecture Overview" width="70%" />
+</p>
 
 ---
 
